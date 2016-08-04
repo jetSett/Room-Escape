@@ -12,7 +12,7 @@ Widget::Widget(QWidget *parent) :
     QFile file("questions.txt");
     if(!file.open(QIODevice::ReadOnly)){
         QMessageBox::critical(this, "Erreur", "Le fichier questions.txt n'a pas pu être trouvé");
-        exit(0);
+        QApplication::instance()->exit(0);
     }
     try{
         QString ns = file.readLine();
@@ -34,7 +34,7 @@ Widget::Widget(QWidget *parent) :
         }
     }catch(...){
         QMessageBox::critical(this, "Erreur", "Le fichier questions.txt n'a pas pu lu correctement");
-        exit(0);
+        QApplication::instance()->exit(0);
     }
 
     diag = new DialogCompte(this);
@@ -68,12 +68,12 @@ void Widget::continuer(){
         ui->label->setText(enigmes[i].texte);
     }else{
         QMessageBox::information(this, "Bravo", "Félicitation, la porte est maintenant ouverte");
-        exit(0);
+        QApplication::instance()->exit(0);
     }
 }
 
 void Widget::perdu(){
     diag->close();
     QMessageBox::critical(this, "Perdu", "Vous avez perdu");
-    exit(0);
+    QApplication::instance()->exit(0);
 }
